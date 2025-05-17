@@ -2,19 +2,48 @@
 
 The TokenLifetime and Epoch system enables the following services and attributes for tokenized markets:
 
+## Table Of Content
+
+- [TokenLifetime-System](#tokenlifetime-system)
+  - [Table Of Content](#table-of-content)
+  - [Documentation](#documentation)
+  - [Formal Specification](#formal-specification)
+  - [Epochs](#epochs)
+  - [Epoch Length](#epoch-length)
+    - [Adaptive](#adaptive)
+  - [Core Attributes](#core-attributes)
+
 ## Documentation
 
-
+- [Mission Stament](docs/missionStament.json)
+- [Function Refinement Tree](docs/functionRefinementTree.png)
+- [Goal Tree](docs/goalTree.md)
 
 ## Formal Specification
 
 We define the token $T_X$ trading lifetime by an ordered, finite collection of `epochs`:
 
 $$
-\texttt{lifetime}(s_0, s_1, \texttt{numbEpochs}) = \left\{\, \texttt{epoch}_j \mid j = 0, 1, \ldots, \texttt{numbEpochs}-1 \right\}
+\texttt{lifetime}(s_0, s_1, \texttt{numbEpochs}) = \left\{\, \texttt{epoch}_j \mid j = 1, \ldots, \texttt{numbEpochs} \right\}
 $$
 
 where each $\texttt{epoch}_j$ is defined by its starting and ending points.
+From here we define the `death` `lifetime` state characterized by
+
+$$
+\text{\texttt{lifetime.death}} := \big (\text{\texttt{lifetime.currentEpoch}} == \text{\texttt{epoch}}_{\text{\texttt{numbEpochs}}} \big )
+
+$$
+
+Now we do not want to restrict all possible use-cases for adapting the parameters:
+- $s_0$
+- $s_1$
+- `numbEpochs`
+
+
+Therefore we define hooks over this parameters to let developers decide how to adapt $s_0, s_1$ or `numbEpochs`
+
+
 
 
 ## Epochs
