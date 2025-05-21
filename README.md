@@ -9,7 +9,7 @@ The TokenLifetime and Epoch system enables the following services and attributes
   - [Documentation](#documentation)
   - [Formal Specification](#formal-specification)
   - [Epochs](#epochs)
-  - [Epoch Length](#epoch-length)
+  - [Epoch Boundary](#epoch-boundary)
     - [Adaptive](#adaptive)
   - [Core Attributes](#core-attributes)
 
@@ -51,14 +51,20 @@ Therefore we define hooks over this parameters to let developers decide how to a
 An epoch is a discrete time interval defined by a fixed starting point and a dynamically controllable interval size:
 
 $$
-i_j \in \texttt{epoch}(i_0, \Delta^E) := \left\{\, i_0 \leq i_j \leq i_1 \,\middle|\, \Delta^E = |i_1 - i_0|,\, i_j \in \mathbb{N}_{32} \right\}
+i_j \in \texttt{epoch}(i_0, i_b) := \left\{\, i_0 \leq i_j \leq i_b \,\middle|\, \, i_j \in \mathbb{N}_{32} \right\}
 $$
 
-- $\Delta^E(\cdots)$ is the `epoch-length` and is controlled by the parameters $\cdots$.
+- Notice each of the $i_j \in \texttt{epoch}(i_0, i_b)$ is a `tx.timestamp` type. Therefore we say
+  - An `epoch` is a set of sequential transactions
+  - A lifetime fixes the start of the epoch such that:
+    -  `stimulus: =lifetime.currentEpoch().expired() --> lifetime.setNextEpoch(Epoch.initialize(expiryTime))` 
+- $i_b$ is the `epoch-boundary` To design its adjustment criteria, one must answer
+  - By changing $i_b$ we are increasing the number of sequential transactions that share a certain property or where certain actions for traders and/or lp's are enabled/disabled. 
 
-## Epoch Length
+## Epoch Boundary
 
-An epoch length has an associated epoch id and can be adjusted.
+
+
 
 ### Adaptive
 
