@@ -2,6 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import {IERC20} from "forge-std/interfaces/IERC20.sol";
+
 /**
  * @title ERC-7818 interface
  * @dev Interface for adding expirable functionality to ERC20 tokens.
